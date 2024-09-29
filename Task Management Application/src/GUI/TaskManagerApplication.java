@@ -1,23 +1,21 @@
-
 package GUI;
 
-
+import java.util.ArrayList;
 import javafx.concurrent.Task;
-import javax.swing.JOptionPane;
-
+import javax.swing.*;
 
 /**
- 
+ *
  * @author Themba Ntimane
  */
 public class TaskManagerApplication extends javax.swing.JFrame {
 
     /**
-     * Creates new form TaskManagerApplication
-     *     private Employee objEmp;
+     * Creates new form TaskManagerApplication private Employee objEmp;
      */
-        private Task objTask;
-         objTask = new Task(Task);
+    private ArrayList<String> List = new ArrayList<>();
+    private Task objTask;
+
     public TaskManagerApplication() {
         initComponents();
     }
@@ -39,6 +37,7 @@ public class TaskManagerApplication extends javax.swing.JFrame {
         txtTask = new javax.swing.JTextField();
         txtIndex = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        btnClear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Task Manager Application");
@@ -62,6 +61,11 @@ public class TaskManagerApplication extends javax.swing.JFrame {
         });
 
         btnExit.setText("Exit");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Delete");
 
@@ -79,6 +83,13 @@ public class TaskManagerApplication extends javax.swing.JFrame {
 
         jLabel2.setText("Task Index");
 
+        btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -88,24 +99,26 @@ public class TaskManagerApplication extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblTask, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTask, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
+                                .addGap(3, 3, 3)
                                 .addComponent(txtIndex, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
-                                .addComponent(btnDelete))
-                            .addComponent(txtTask, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, Short.MAX_VALUE))
+                                .addGap(34, 34, 34)
+                                .addComponent(btnDelete)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addComponent(btnAddTask)
+                        .addGap(12, 12, 12)
+                        .addComponent(btnViewTasks)
+                        .addGap(6, 6, 6))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(btnAddTask)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnViewTasks)
-                    .addComponent(btnExit))
-                .addGap(6, 6, 6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,15 +132,16 @@ public class TaskManagerApplication extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnDelete)
-                                .addComponent(txtIndex, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtIndex, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDelete))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnExit)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnExit)
+                            .addComponent(btnClear))
                         .addGap(28, 28, 28))))
         );
 
@@ -135,22 +149,43 @@ public class TaskManagerApplication extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTaskActionPerformed
-     //Get Input 
-     String Task=txtTask.getText();
-     
-      //display the  Message and Reset the Textbox
- 
-      JOptionPane.showMessageDialog(this, "Task saved","INFORMATION",JOptionPane.OK_OPTION);
-      txtTask.setText(" ");
+        //Get Input 
+        try {
+
+            String Task = txtTask.getText();
+            String Index = txtIndex.getText();
+            if (!Task.isEmpty() && !Index.isEmpty()) {
+                List.add(Task);
+                List.add(Index);
+                txtTask.setText(" ");
+                txtIndex.setText(" ");
+                JOptionPane.showMessageDialog(this, "Task Created & saved \n Tasks: " + Index+". " + Task, "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Please Insert text only characters also make sure you entered the index Number", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+
+            //display the  Message and Reset the Textbox
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Please Insert text only characters", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_btnAddTaskActionPerformed
-    private void showTask()
-    {
-        String Display =txtTask.getText();
+    private void showTask() {
+        String Display = txtTask.getText();
 //       String Display =lblTask.setText(objTask.getTask());
-       JOptionPane.showMessageDialog(this, Display,"INFORMATION",JOptionPane.OK_OPTION);
-       txtTask.setText(" ");
-        
-       
+        JOptionPane.showMessageDialog(this, List.toString(), "Saved Data", JOptionPane.OK_OPTION);
+        txtTask.setText(" ");
+
+    }
+
+    private void ClearData() {
+        txtIndex.setText(" ");
+        txtTask.setText(" ");
+        txtTask.requestFocus();
+    }
+    
+      private void ViewData() {
+      
     }
     
     private void txtIndexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIndexActionPerformed
@@ -162,8 +197,16 @@ public class TaskManagerApplication extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTaskActionPerformed
 
     private void btnViewTasksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewTasksActionPerformed
-       showTask();
+      
     }//GEN-LAST:event_btnViewTasksActionPerformed
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+
+    }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        ClearData();
+    }//GEN-LAST:event_btnClearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,6 +245,7 @@ public class TaskManagerApplication extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddTask;
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnViewTasks;
